@@ -1,7 +1,7 @@
 package Reader
 
 import (
-	"golangemaildbreader/pkg/reader/Types"
+	"github.com/IPQualityScore/GoEmailDBReader/pkg/reader/Types"
 	"math/big"
 )
 

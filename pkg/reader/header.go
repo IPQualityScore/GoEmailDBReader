@@ -3,7 +3,7 @@ package Reader
 import (
 	"errors"
 	"fmt"
-	"golangemaildbreader/pkg/reader/Types"
+	"github.com/IPQualityScore/GoEmailDBReader/pkg/reader/Types"
 	"os"
 )
 

@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"golangemaildbreader/pkg/emaillookup"
+	"github.com/IPQualityScore/GoEmailDBReader/pkg/emaillookup"
 	"time"
 )
 

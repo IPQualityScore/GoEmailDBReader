@@ -3,7 +3,7 @@ package emaillookup
 import (
 	"crypto/sha256"
 	"fmt"
-	Reader "golangemaildbreader/pkg/reader"
+	Reader "github.com/IPQualityScore/GoEmailDBReader/pkg/reader"
 	"log"
 	"math/big"
 	"os"

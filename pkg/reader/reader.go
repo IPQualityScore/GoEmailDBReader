@@ -2,7 +2,7 @@ package Reader
 
 import (
 	"fmt"
-	"golangemaildbreader/pkg/reader/Types"
+	"github.com/IPQualityScore/GoEmailDBReader/pkg/reader/Types"
 	"math/big"
 	"os"
 	"reflect"
