@@ -33,18 +33,18 @@ email := "noreply@ipqs.com"
 
 record := lookup.LookupEmail(email)
 if record != nil {
-    fmt.Println("found data:", record)
-    for _, v := range record.Data {
-        fmt.Println(v.ToString())
-    }
+	fmt.Println("found data:", record)
+ 	for _, v := range record.Data {
+		fmt.Println(v.ToString())
+	}
 
-    fraud := record.FraudScore()
-    if fraud != nil {
-        fmt.Println("Fraud Score:", fraud.FraudScore)
-    } else {
-        fmt.Println("Could not find fraud score!")
-    }
-}   
+	fraud := record.FraudScore()
+	if fraud != nil {
+        	fmt.Println("Fraud Score:", fraud.FraudScore)
+	} else {
+		fmt.Println("Could not find fraud score!")
+	}
+}
             </code></pre>
         </div>
     </div>
