@@ -32,3 +32,81 @@ func (d *Data) Deserialize(b []byte) {
 		offset += int(v.GetSize())
 	}
 }
+func (d *Data) Base() *Types.Base {
+	for _, v := range d.Data {
+		switch v.(type) {
+		case *Types.Base:
+			return v.(*Types.Base)
+		}
+	}
+	return nil
+}
+func (d *Data) DomainCommon() *Types.DomainCommon {
+	for _, v := range d.Data {
+		switch v.(type) {
+		case *Types.DomainCommon:
+			return v.(*Types.DomainCommon)
+		}
+	}
+	return nil
+}
+
+func (d *Data) DomainDisposable() *Types.DomainDisposable {
+	for _, v := range d.Data {
+		switch v.(type) {
+		case *Types.DomainDisposable:
+			return v.(*Types.DomainDisposable)
+		}
+	}
+	return nil
+}
+
+func (d *Data) DomainVelocity() *Types.DomainVelocity {
+	for _, v := range d.Data {
+		switch v.(type) {
+		case *Types.DomainVelocity:
+			return v.(*Types.DomainVelocity)
+		}
+	}
+	return nil
+}
+
+func (d *Data) FraudScore() *Types.FraudScore {
+	for _, v := range d.Data {
+		switch v.(type) {
+		case *Types.FraudScore:
+			return v.(*Types.FraudScore)
+		}
+	}
+	return nil
+}
+
+func (d *Data) Leaked() *Types.Leaked {
+	for _, v := range d.Data {
+		switch v.(type) {
+		case *Types.Leaked:
+			return v.(*Types.Leaked)
+		}
+	}
+	return nil
+}
+
+func (d *Data) RecentAbuse() *Types.RecentAbuse {
+	for _, v := range d.Data {
+		switch v.(type) {
+		case *Types.RecentAbuse:
+			return v.(*Types.RecentAbuse)
+		}
+	}
+	return nil
+}
+
+func (d *Data) UserVelocity() *Types.UserVelocity {
+	for _, v := range d.Data {
+		switch v.(type) {
+		case *Types.UserVelocity:
+			return v.(*Types.UserVelocity)
+		}
+	}
+	return nil
+}

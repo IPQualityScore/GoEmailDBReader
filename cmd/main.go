@@ -19,6 +19,12 @@ func main() {
 			for _, v := range res.Data {
 				fmt.Println(v.ToString())
 			}
+			fraud := res.FraudScore()
+			if fraud != nil {
+				fmt.Println("parsed fraudscore:", fraud.FraudScore)
+			} else {
+				fmt.Println("couldn't find fraudscore")
+			}
 		} else {
 			fmt.Println("not found")
 		}
