@@ -125,14 +125,14 @@ if record != nil {
                         </td>
 					</tr>
                     <tr>
-						<td>record.RecentAbuse().RecentAbuse/td>
+						<td>record.RecentAbuse().RecentAbuse</td>
 						<td>bool</td>
 						<td>
                             This value will indicate if there has been any recently verified abuse across our network for this email address. Abuse could be a confirmed chargeback, fake signup, compromised device, fake app install, or similar malicious behavior within the past few days.
                         </td>
 					</tr>
                     <tr>
-						<td>record.UserVelocity().UserVelocity/td>
+						<td>record.UserVelocity().UserVelocity</td>
 						<td>bool</td>
 						<td>
                             Frequency at which this email address makes legitimate purchases, account registrations, and engages in legitimate user behavior online. Values can be "high", "medium", "low", or "none". Values of "high" or "medium" are strong signals of healthy usage. New email addresses without a history of legitimate behavior will have a value as "none". This field is restricted to higher plan tiers.
