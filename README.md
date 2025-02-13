@@ -6,7 +6,7 @@
 	<p>
         Our flat file email validation database allows you to lookup important details about any email address using a straight forward library. Simply install the reader, download a database and instantly check email addresses against our large volume of data.
     </p>
-    <a href="https://www.ipqualityscore.com/documentation/email-reputation-database/golang-email-database-reader" target="_blank">Click here to see the full Golang IPQualityScore flat file email database documentation</a> or <a href="https://www.ipqualityscore.com/email-reputation-database/getting-started">click here for a more in depth explanation of what our email validation database does</a>.
+    Click here to see the full <a href="https://www.ipqualityscore.com/documentation/email-validation-database/golang-email-database-reader" target="_blank">Golang IPQualityScore flat file email validation database documentation</a>. You may also find the information on our <a href="https://www.ipqualityscore.com/email-verification" target="_blank">email verification / email validation serivce</a> helpful.
     <h6 class="text-bold headerHR">Installation</h6>
 	<div class="spacing-10"></div>
 	<p>
