@@ -35,8 +35,10 @@ func (le *EmailLookup) LookupEmail(input string) *Reader.Data {
 	if err != nil {
 		log.Fatal(err)
 	}
-	results := []resultobj{}
-	resultlock := sync.Mutex{}
+	resultsEmail := []resultobj{}
+	resultlockEmail := sync.Mutex{}
+	resultsDomain := []resultobj{}
+	resultlockDomain := sync.Mutex{}
 	wg := sync.WaitGroup{}
 	for _, e := range entries {
 		wg.Add(1)
@@ -58,34 +60,61 @@ func (le *EmailLookup) LookupEmail(input string) *Reader.Data {
 				if len(split) > 1 {
 					input = split[len(split)-1]
 				}
+				data := readerinstance.ContainsOnOffset(hashToInt(input), readerinstance.Header.GetSize())
+				if data != nil {
+					resultlockDomain.Lock()
+					resultsDomain = append(resultsDomain, resultobj{
+						CreationTime: int64(readerinstance.Header.CreationTime),
+						Filename:     db.Name(),
+						Data:         data,
+					})
+					resultlockDomain.Unlock()
+
+				}
+			} else {
+				data := readerinstance.ContainsOnOffset(hashToInt(input), readerinstance.Header.GetSize())
+				if data != nil {
+					resultlockEmail.Lock()
+					resultsEmail = append(resultsEmail, resultobj{
+						CreationTime: int64(readerinstance.Header.CreationTime),
+						Filename:     db.Name(),
+						Data:         data,
+					})
+					resultlockEmail.Unlock()
+
+				}
 			}
 
-			data := readerinstance.ContainsOnOffset(hashToInt(input), readerinstance.Header.GetSize())
-			if data != nil {
-				resultlock.Lock()
-				results = append(results, resultobj{
-					CreationTime: int64(readerinstance.Header.CreationTime),
-					Filename:     db.Name(),
-					Data:         data,
-				})
-				resultlock.Unlock()
-
-			}
 			readerinstance.Close()
 		}(e)
 	}
 	wg.Wait()
-	newestRes := int64(0)
-	finalResult := resultobj{}
+	newestResEmail := int64(0)
+	finalResultEmail := resultobj{}
+	newestResDomain := int64(0)
+	finalResultDomain := resultobj{}
 
-	for _, v := range results {
-		if v.CreationTime > newestRes {
-			newestRes = v.CreationTime
-			finalResult = v
+	for _, v := range resultsEmail {
+		if v.CreationTime > newestResEmail {
+			newestResEmail = v.CreationTime
+			finalResultEmail = v
 		}
 	}
-	if newestRes != 0 {
-		return finalResult.Data
+	for _, v := range resultsDomain {
+		if v.CreationTime > newestResDomain {
+			newestResDomain = v.CreationTime
+			finalResultDomain = v
+		}
+	}
+
+	if newestResEmail != 0 {
+		if newestResDomain != 0 {
+			finalResultEmail.Data.Data = append(finalResultEmail.Data.Data, finalResultDomain.Data.Data...)
+		}
+		return finalResultEmail.Data
+	}
+	if newestResDomain != 0 {
+		return finalResultDomain.Data
 	}
 	return nil
 }

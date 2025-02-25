@@ -33,12 +33,14 @@ func (r *Reader) ContainsOnOffset(hash *big.Int, offset int64) *Data {
 	bLeaf := make([]byte, 1)
 	r.F.ReadAt(bLeaf, offset)
 	offset++
-	leaf := bLeaf[0] == 0x01 //is node a leaf node
+
+	leaf := bLeaf[0] == 0x01
 	bN := make([]byte, 8)
 	r.F.ReadAt(bN, offset)
-	offset += int64(len(bN))
-	N := int(btoi64(bN)) ///number of keys in the node
-	for i := 0; i < N; i++ {
+	offset += 8
+	N := int(btoi64(bN))
+	i := 0
+	for i = 0; i < N; i++ {
 		Key := &Data{}
 		Key.Data = []Types.TypeInterface{}
 		for _, v := range r.Header.Headers {
@@ -46,26 +48,30 @@ func (r *Reader) ContainsOnOffset(hash *big.Int, offset int64) *Data {
 		}
 		b1 := make([]byte, Key.GetSize())
 		r.F.ReadAt(b1, offset)
-		Key.Deserialize(b1) //deserialize the key
+		Key.Deserialize(b1)
 		offset += Key.GetSize()
-		if hash.Cmp(Key.Hash) == 0 { //= found matching key
+		if hash.Cmp(Key.Hash) == 1 { //>
+			continue
+		}
+		if hash.Cmp(Key.Hash) == 0 { //=
 			return Key
 		}
-		if hash.Cmp(Key.Hash) == -1 { //< node does not contain the key
-			if leaf { //skip further processing if leaf node
-				return nil
-			}
-			offset += int64(8 * (i - 1))
-			pos := make([]byte, 8)
-			r.F.ReadAt(pos, offset)
-			offset = btoi64(pos) //move to the next node
-			if offset == 0 {
-				return nil
-			}
-			return r.ContainsOnOffset(hash, offset) //recursive call to search the next node
-		}
+		offset += Key.GetSize() * int64(N-i-1)
+		break
+
 	}
-	return nil
+	if leaf {
+		return nil
+	}
+	offset += int64(8 * i)
+	pos := make([]byte, 8)
+	r.F.ReadAt(pos, offset)
+	offset = btoi64(pos)
+	if offset == 0 {
+		return nil
+	}
+	return r.ContainsOnOffset(hash, offset)
+
 }
 
 // cleanup function to close the file
