@@ -145,6 +145,13 @@ if record != nil {
                             When this email address was first seen online.
                         </td>
 					</tr>
+<tr>
+						<td>record.DomainAge().DomainAge</td>
+						<td>time.Time</td>
+						<td>
+                            Date when this domain was registered.
+                        </td>
+					</tr>
                     <tr>
 						<td>record.DomainCommon().DomainCommon</td>
 						<td>bool</td>
