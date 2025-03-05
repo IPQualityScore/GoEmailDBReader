@@ -110,3 +110,22 @@ func (d *Data) UserVelocity() *Types.UserVelocity {
 	}
 	return nil
 }
+func (d *Data) FirstSeen() *Types.FirstSeen {
+	for _, v := range d.Data {
+		switch v.(type) {
+		case *Types.FirstSeen:
+			return v.(*Types.FirstSeen)
+		}
+	}
+	return nil
+}
+
+func (d *Data) DomainAge() *Types.DomainAge {
+	for _, v := range d.Data {
+		switch v.(type) {
+		case *Types.DomainAge:
+			return v.(*Types.DomainAge)
+		}
+	}
+	return nil
+}
