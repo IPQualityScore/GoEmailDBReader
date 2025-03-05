@@ -43,7 +43,7 @@ func (h *Header) Deserialize(file *os.File) error {
 	file.ReadAt(buf, 14)
 	count := int(buf[0])
 	h.Headers = make([]Types.TypeInterface, 0)
-	possibleHeaders := []Types.TypeInterface{&Types.Base{}, &Types.FraudScore{}, &Types.Leaked{}, &Types.RecentAbuse{}, &Types.UserVelocity{}, &Types.DomainVelocity{}, &Types.DomainCommon{}, &Types.DomainDisposable{}}
+	possibleHeaders := []Types.TypeInterface{&Types.Base{}, &Types.FraudScore{}, &Types.Leaked{}, &Types.RecentAbuse{}, &Types.UserVelocity{}, &Types.DomainVelocity{}, &Types.DomainCommon{}, &Types.DomainDisposable{}, &Types.FirstSeen{}, &Types.DomainAge{}}
 	offset := 14
 	for i := 0; i < count; i++ {
 		buf = []byte{0, 0}

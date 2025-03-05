@@ -56,11 +56,12 @@ func (le *EmailLookup) LookupEmail(input string) *Reader.Data {
 				return
 			}
 			if readerinstance.Header.Type == 0x01 {
-				split := strings.Split(input, "@")
+				searchval := input
+				split := strings.Split(searchval, "@")
 				if len(split) > 1 {
-					input = split[len(split)-1]
+					searchval = split[len(split)-1]
 				}
-				data := readerinstance.ContainsOnOffset(hashToInt(input), readerinstance.Header.GetSize())
+				data := readerinstance.ContainsOnOffset(hashToInt(searchval), readerinstance.Header.GetSize())
 				if data != nil {
 					resultlockDomain.Lock()
 					resultsDomain = append(resultsDomain, resultobj{
@@ -106,7 +107,6 @@ func (le *EmailLookup) LookupEmail(input string) *Reader.Data {
 			finalResultDomain = v
 		}
 	}
-
 	if newestResEmail != 0 {
 		if newestResDomain != 0 {
 			finalResultEmail.Data.Data = append(finalResultEmail.Data.Data, finalResultDomain.Data.Data...)

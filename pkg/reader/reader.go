@@ -50,10 +50,11 @@ func (r *Reader) ContainsOnOffset(hash *big.Int, offset int64) *Data {
 		r.F.ReadAt(b1, offset)
 		Key.Deserialize(b1)
 		offset += Key.GetSize()
-		if hash.Cmp(Key.Hash) == 1 { //>
+		compare := hash.Cmp(Key.Hash)
+		if compare == 1 { //>
 			continue
 		}
-		if hash.Cmp(Key.Hash) == 0 { //=
+		if compare == 0 { //=
 			return Key
 		}
 		offset += Key.GetSize() * int64(N-i-1)
