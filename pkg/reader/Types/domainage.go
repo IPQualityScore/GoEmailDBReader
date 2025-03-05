@@ -17,14 +17,6 @@ func (f *DomainAge) GetID() int {
 func (f *DomainAge) GetSize() int64 {
 	return 8
 }
-func (f *DomainAge) Serialize() []byte {
-	r := make([]byte, 8)
-	val := f.DomainAge.UTC().Unix()
-	for i := int64(0); i < 8; i++ {
-		r[i] = byte(val >> (i * 8))
-	}
-	return r
-}
 func (f *DomainAge) Deserialize(d []byte) {
 	var r int64
 	for i := int64(0); i < 8; i++ {
